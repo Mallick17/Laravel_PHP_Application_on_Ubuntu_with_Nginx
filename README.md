@@ -293,18 +293,16 @@ php artisan migrate
 
 ---
 
-### 22-24. Set Directory Permissions
+### 22. Set Directory Permissions
 **Commands:**
 ```bash
-chown -R www-data:www-data /var/www/html/laravel
-chown -R www-data:www-data /var/www/html/task
 chown -R www-data:www-data /var/www/task
 ```
 - **Purpose**: Changes ownership of the application directories to the `www-data` user and group (Nginx’s default user) to ensure the web server can access files. Note: Commands 22 and 23 seem redundant or incorrect (`/var/www/html/laravel` and `/var/www/html/task` may not exist); only command 24 (`/var/www/task`) is relevant here.
 
 ---
 
-### 25. Set Storage Directory Permissions
+### 23. Set Storage Directory Permissions
 **Command:**
 ```bash
 chmod -R 775 /var/www/task/storage/
@@ -313,7 +311,7 @@ chmod -R 775 /var/www/task/storage/
 
 ---
 
-### 26-33. Configure Nginx
+### 24-30. Configure Nginx
 **Commands:**
 ```bash
 cd /etc/nginx/sites-available/
@@ -379,7 +377,7 @@ server {
 
 ---
 
-### 34. Restart Nginx
+### 31. Restart Nginx
 **Command:**
 ```bash
 systemctl restart nginx.service
