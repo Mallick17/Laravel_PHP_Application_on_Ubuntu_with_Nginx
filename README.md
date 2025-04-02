@@ -376,6 +376,7 @@ server {
 ```
     
 </details>
+
 ---
 
 ### 34. Restart Nginx
@@ -384,9 +385,6 @@ server {
 systemctl restart nginx.service
 ```
 - **Purpose**: Restarts Nginx to apply the new configuration.
-
----
-
 
 ---
 
