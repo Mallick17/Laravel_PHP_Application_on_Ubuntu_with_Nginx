@@ -4,12 +4,10 @@
 #### **1. Web Server**
 - **Definition**: A web server is software that handles HTTP/HTTPS requests from clients (e.g., browsers) and serves static content (like HTML, CSS, JavaScript) or forwards dynamic requests to an application server. In this case, **Nginx** is the web server.
 - **Role in the Setup**: Nginx listens for incoming HTTP requests (e.g., on port 80 or 443 for HTTPS) and serves static files directly. For dynamic content (e.g., PHP pages), it forwards the request to the application server (via PHP-FPM, a FastCGI Process Manager for PHP).
-- **In the ALB Context**: The Application Load Balancer (ALB) in your screenshots (`mallow-vpc-lb`) acts as a front-facing load balancer that distributes incoming traffic to the web server (Nginx). The ALB listens on HTTP:80 and forwards traffic to a target group (`mallow-php-app`), which would ideally include EC2 instances running Nginx.
 
 #### **2. Application Server**
 - **Definition**: An application server processes the business logic of the application, handling dynamic requests. In a PHP setup like Laravel, the application server is typically **PHP-FPM** (FastCGI Process Manager), which processes PHP code.
 - **Role in the Setup**: PHP-FPM interprets PHP scripts (e.g., Laravel’s `index.php`) to generate dynamic content. It receives requests from the web server (Nginx), processes them, and returns the response (e.g., HTML) to Nginx, which then sends it back to the client.
-- **In the ALB Context**: The `mallow-php-app` target group in your ALB setup would include EC2 instances running PHP-FPM alongside Nginx. The ALB forwards traffic to these instances, where Nginx hands off PHP requests to PHP-FPM for processing.
 
 #### **3. Database Server**
 - **Definition**: A database server manages the storage, retrieval, and manipulation of data. In this setup, **MySQL** or **MariaDB** is typically used as the database server.
