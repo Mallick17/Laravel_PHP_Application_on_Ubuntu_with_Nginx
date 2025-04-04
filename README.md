@@ -1,4 +1,19 @@
 # Deployment Documentation: Laravel PHP Application on Ubuntu with Nginx
+### **Roles of Web Server, Application Server, and Database Server**
+
+#### **1. Web Server**
+- **Definition**: A web server is software that handles HTTP/HTTPS requests from clients (e.g., browsers) and serves static content (like HTML, CSS, JavaScript) or forwards dynamic requests to an application server. In this case, **Nginx** is the web server.
+- **Role in the Setup**: Nginx listens for incoming HTTP requests (e.g., on port 80 or 443 for HTTPS) and serves static files directly. For dynamic content (e.g., PHP pages), it forwards the request to the application server (via PHP-FPM, a FastCGI Process Manager for PHP).
+- **In the ALB Context**: The Application Load Balancer (ALB) in your screenshots (`mallow-vpc-lb`) acts as a front-facing load balancer that distributes incoming traffic to the web server (Nginx). The ALB listens on HTTP:80 and forwards traffic to a target group (`mallow-php-app`), which would ideally include EC2 instances running Nginx.
+
+#### **2. Application Server**
+- **Definition**: An application server processes the business logic of the application, handling dynamic requests. In a PHP setup like Laravel, the application server is typically **PHP-FPM** (FastCGI Process Manager), which processes PHP code.
+- **Role in the Setup**: PHP-FPM interprets PHP scripts (e.g., Laravel’s `index.php`) to generate dynamic content. It receives requests from the web server (Nginx), processes them, and returns the response (e.g., HTML) to Nginx, which then sends it back to the client.
+- **In the ALB Context**: The `mallow-php-app` target group in your ALB setup would include EC2 instances running PHP-FPM alongside Nginx. The ALB forwards traffic to these instances, where Nginx hands off PHP requests to PHP-FPM for processing.
+
+#### **3. Database Server**
+- **Definition**: A database server manages the storage, retrieval, and manipulation of data. In this setup, **MySQL** or **MariaDB** is typically used as the database server.
+- **Role in the Setup**: The database server stores the application’s data (e.g., user information, posts, or tasks in a Laravel app). The application server (PHP-FPM) queries the database server to fetch or update data as needed.
 
 This document outlines the step-by-step process for deploying a Laravel PHP application on an Ubuntu server using Nginx as the web server, PHP 8.2, MySQL as the database, and Composer for dependency management. The deployment assumes a fresh Ubuntu instance (e.g., an AWS EC2 instance with IP `13.233.13.127`) and includes setting up the environment, installing dependencies, configuring the application, and serving it via Nginx.
 
